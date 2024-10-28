@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.combat
 
+import jdk.jfr.Enabled
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.event.EventTarget
 import net.ccbluex.liquidbounce.event.JumpEvent
@@ -16,6 +17,7 @@ import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
+import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
@@ -45,7 +47,6 @@ class Velocity : Module() {
     private val verticalAirValue = FloatValue("VerticalAir", 0F, -1F, 1F, "x")
     private val customXMotionReset = BoolValue("CustomXMotionReset", false)
     private val customYMotionReset = BoolValue("CustomYMotionReset", false)
-    private val customCancelOnSpeed = BoolValue("CustomCancelOnSpeed", false)
     private val horizontalExplosionValue = FloatValue("HorizontalExplosion", 0F, 0F, 1F, "x")
     private val verticalExplosionValue = FloatValue("VerticalExplosion", 0F, 0F, 1F, "x")
     private val modeValue = ListValue("Mode", arrayOf("Cancel", "Simple", "AACv4", "AAC4Reduce", "AAC5Reduce", "AAC5.2.0", "AAC", "AACPush", "AACZero",
@@ -344,10 +345,6 @@ class Velocity : Module() {
 
                     if (customYMotionReset.get()) {
                         mc.thePlayer.motionY = 0.0
-                    }
-
-                    if (customCancelOnSpeed.get()) {
-                        event.cancelEvent()
                     }
                 }
 
