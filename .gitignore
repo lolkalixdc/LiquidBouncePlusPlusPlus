@@ -1,0 +1,14 @@
+/run/
+/out/
+/build/
+/.settings/
+/bin/
+/.gradle/
+/.iml/
+/.ipr/
+/.iws/
+LiquidBouncePlusPlus.iml
+LiquidBouncePlusPlus.ipr
+LiquidBouncePlusPlus.iws
+/.idea
+/.idea/.name

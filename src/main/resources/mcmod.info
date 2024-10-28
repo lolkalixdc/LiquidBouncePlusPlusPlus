@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "liquidbounceplusplusplus",
+    "name": "LiquidBounce+++",
+    "description": "A Minecraft 1.8.9 PvP Client with ton of utilities. I don't have my own website or repo right now.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/lolkalixdc",
+    "updateUrl": "",
+    "authorList": ["CCBlueX", "exit-scammed", "MongusOrg", "lolkalixdc"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
