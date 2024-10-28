@@ -58,7 +58,6 @@ class ChestStealer : Module() {
     private val eventModeValue = ListValue("OnEvent", arrayOf("Render3D", "Update", "MotionPre", "MotionPost"), "Render3D")
 
     private val takeRandomizedValue = BoolValue("TakeRandomized", false)
-    private val takeReversedValue = BoolValue("TakeRandomized", true)
     private val onlyItemsValue = BoolValue("OnlyItems", false)
     private val noCompassValue = BoolValue("NoCompass", false)
     private val noDuplicateValue = BoolValue("NoDuplicateNonStackable", false)
@@ -170,29 +169,6 @@ class ChestStealer : Module() {
 
                     val randomSlot = Random.nextInt(items.size)
                     val slot = items[randomSlot]
-
-                    move(screen, slot)
-                    if (nextDelay == 0L || delayTimer.hasTimePassed(nextDelay))
-                        noLoop = true
-                } while (delayTimer.hasTimePassed(nextDelay) && items.isNotEmpty() && !noLoop)
-                return
-            }
-
-            // Reversed
-            if (takeReversedValue.get()) {
-                var noLoop = false
-                do {
-                    val items = mutableListOf<Slot>()
-
-                    for (slotIndex in 0 until screen.inventoryRows * 9) {
-                        val slot = screen.inventorySlots.inventorySlots[slotIndex]
-
-                        if (slot.stack != null && (!onlyItemsValue.get() || slot.stack.item !is ItemBlock) && (!noDuplicateValue.get() || slot.stack.maxStackSize > 1 || !mc.thePlayer.inventory.mainInventory.filter { it != null && it.item != null }.map { it.item!! }.contains(slot.stack.item)) && (!inventoryCleaner.state || inventoryCleaner.isUseful(slot.stack, -1)))
-                            items.add(slot)
-                    }
-
-                    val reversedLlist = items.asReversed()
-                    val slot = reversedLlist.inventorySlots.inventorySlots[slotIndex]
 
                     move(screen, slot)
                     if (nextDelay == 0L || delayTimer.hasTimePassed(nextDelay))
