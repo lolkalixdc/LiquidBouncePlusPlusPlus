@@ -18,7 +18,7 @@ import net.ccbluex.liquidbounce.value.ListValue
 @ModuleInfo(name = "NoWeb", spacedName = "No Web", description = "Prevents you from getting slowed down in webs.", category = ModuleCategory.MOVEMENT)
 class NoWeb : Module() {
 
-    private val modeValue = ListValue("Mode", arrayOf("None", "None0Y", "AAC", "LAAC", "Rewi", "AACv4", "Cardinal", "Horizon", "Spartan", "Negativity"), "None")
+    private val modeValue = ListValue("Mode", arrayOf("None", "None0Y", "NCP", "AAC", "LAAC", "Rewi", "AACv4", "Cardinal", "Horizon", "Spartan", "Negativity"), "None")
     private val horizonSpeed = FloatValue("HorizonSpeed", 0.1F, 0.01F, 0.8F)
 
     private var usedTimer = false
@@ -36,6 +36,10 @@ class NoWeb : Module() {
             "none0y" -> {
                 mc.thePlayer.isInWeb = false
                 mc.thePlayer.motionY = 0.0
+            }
+            "ncp" -> {
+                mc.thePlayer.motionY = 0.0
+                MovementUtils.strafe(0.20F)
             }
             "aac" -> {
                 mc.thePlayer.jumpMovementFactor = 0.59f
