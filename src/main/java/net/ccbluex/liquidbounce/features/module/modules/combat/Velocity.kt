@@ -41,8 +41,11 @@ class Velocity : Module() {
      */
     private val horizontalValue = FloatValue("Horizontal", 0F, -1F, 1F, "x")
     private val verticalValue = FloatValue("Vertical", 0F, -1F, 1F, "x")
-    private val horizontalAirValue = FloatValue("Horizontal", 0F, -1F, 1F, "x")
-    private val verticalAirValue = FloatValue("Vertical", 0F, -1F, 1F, "x")
+    private val horizontalAirValue = FloatValue("HorizontalAir", 0F, -1F, 1F, "x")
+    private val verticalAirValue = FloatValue("VerticalAir", 0F, -1F, 1F, "x")
+    private val customXMotionReset = BoolValue("CustomXMotionReset", false)
+    private val customYMotionReset = BoolValue("CustomYMotionReset", false)
+    private val customCancelOnSpeed = BoolValue("CustomCancelOnSpeed", false)
     private val horizontalExplosionValue = FloatValue("HorizontalExplosion", 0F, 0F, 1F, "x")
     private val verticalExplosionValue = FloatValue("VerticalExplosion", 0F, 0F, 1F, "x")
     private val modeValue = ListValue("Mode", arrayOf("Cancel", "Simple", "AACv4", "AAC4Reduce", "AAC5Reduce", "AAC5.2.0", "AAC", "AACPush", "AACZero",
@@ -325,9 +328,26 @@ class Velocity : Module() {
                         packet.motionY = (packet.getMotionY() * verticalValue.get()).toInt()
                         packet.motionZ = (packet.getMotionZ() * horizontalValue.get()).toInt()
                     } else if (mc.thePlayer.onGround == false) {
-                        packet.motionX = (packet.getMotionX() * horizontalAirValue.get()).toInt()
-                        packet.motionY = (packet.getMotionY() * verticalAirValue.get()).toInt()
-                        packet.motionZ = (packet.getMotionZ() * horizontalAirValue.get()).toInt()
+                        if (horizontalAirValue.get().toInt() == 0 && verticalAirValue.get().toInt() == 0) {
+                            event.cancelEvent()
+                        } else {
+                            packet.motionX = (packet.getMotionX() * horizontalAirValue.get()).toInt()
+                            packet.motionY = (packet.getMotionY() * verticalAirValue.get()).toInt()
+                            packet.motionZ = (packet.getMotionZ() * horizontalAirValue.get()).toInt()
+                        }
+                    }
+
+                    if (customXMotionReset.get()) {
+                        mc.thePlayer.motionX = 0.0
+                        mc.thePlayer.motionZ = 0.0
+                    }
+
+                    if (customYMotionReset.get()) {
+                        mc.thePlayer.motionY = 0.0
+                    }
+
+                    if (customCancelOnSpeed.get()) {
+                        event.cancelEvent()
                     }
                 }
 
